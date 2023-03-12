@@ -24,7 +24,7 @@ function App() {
     setTimeout(() => setAppLoaded(true), 3000);
   };
 
-  if (!appLoaded) return <Loader done={startLoadProgress} />;
+  if (!appLoaded && token) return <Loader done={startLoadProgress} />;
 
   return (
     <React.Fragment>
