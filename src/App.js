@@ -1,7 +1,7 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import { Route, Routes } from "react-router-dom"
-import Login from './pages/Login/login';
+import Login from './pages/Login/index';
+import Chat from './pages/Chat/index';
 import Loader from './components/Loader/index'
 import useCookie from './hooks/useCookie';
 import constant from './constant';
@@ -33,8 +33,7 @@ function App() {
         <div className="app-content">
 
           {!token ? <Login /> :
-            <h1>Logged In</h1>
-            // <Chat />
+            <Chat />
           }
         </div>
 
