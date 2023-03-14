@@ -1,5 +1,5 @@
 import React from "react";
-import Icon from "components/Icon";
+import Icon from "../../../components/Icon";
 
 const emojiTabs = [
 	{ icon: "recent", label: "Recent emojis", active: true },

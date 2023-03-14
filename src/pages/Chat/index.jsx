@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./styles/main.css";
-// import EmojiTray from "./components/EmojiTray";
-// import ChatInput from "./components/ChatInput";
+import EmojiTray from "./components/EmojiTray";
+import ChatInput from "./components/ChatInput";
 import Header from "./components/Header";
 import ChatSidebar from "./components/ChatSidebar";
 import Icon from "../../components/Icon";
-// import Search from "./components/Search";
-// import Profile from "./components/Profile";
+import Search from "./components/Search";
+import Profile from "./components/Profile";
 import Convo from "./components/Convo";
 // import { useUsersContext } from "context/usersContext";
 
@@ -44,15 +44,15 @@ const Chat = ({ match, history }) => {
 		cb(true);
 	};
 
-	// const scrollToLastMsg = () => {
-	// 	lastMsgRef.current.scrollIntoView();
-	// };
+	const scrollToLastMsg = () => {
+		lastMsgRef.current.scrollIntoView();
+	};
 
-	// const submitNewMessage = () => {
+	const submitNewMessage = () => {
 	// 	addNewMessage(user.id, newMessage);
-	// 	setNewMessage("");
-	// 	scrollToLastMsg();
-	// };
+		setNewMessage("");
+	 	scrollToLastMsg();
+	};
 
 	return (
 		<div className="chat">
@@ -77,12 +77,12 @@ const Chat = ({ match, history }) => {
 					>
 						<Icon id="downArrow" />
 					</button>
-					{/* <EmojiTray
+					<EmojiTray
 						showEmojis={showEmojis}
 						newMessage={newMessage}
 						setNewMessage={setNewMessage}
-					/> */}
-					{/* <ChatInput
+					/>
+					<ChatInput
 						showEmojis={showEmojis}
 						setShowEmojis={setShowEmojis}
 						showAttach={showAttach}
@@ -90,24 +90,26 @@ const Chat = ({ match, history }) => {
 						newMessage={newMessage}
 						setNewMessage={setNewMessage}
 						submitNewMessage={submitNewMessage}
-					/> */}
+					/>
 				</footer>
 			</div>
-			{/* <ChatSidebar
+			<ChatSidebar
 				heading="Search Messages"
 				active={showSearchSidebar}
 				closeSidebar={() => setShowSearchSidebar(false)}
 			>
 				<Search />
-			</ChatSidebar> */}
+			</ChatSidebar>
 
-			{/* <ChatSidebar
+			<ChatSidebar
 				heading="Contact Info"
 				active={showProfileSidebar}
 				closeSidebar={() => setShowProfileSidebar(false)}
 			>
-				<Profile user={user} />
-			</ChatSidebar> */}
+				<Profile 
+				// user={user}
+				 />
+			</ChatSidebar>
 		</div>
 	);
 };

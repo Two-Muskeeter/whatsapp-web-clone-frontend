@@ -5,6 +5,8 @@ import Chat from './pages/Chat/index';
 import Loader from './components/Loader/index'
 import useCookie from './hooks/useCookie';
 import constant from './constant';
+import Sidebar from "./components/Sidebar/index";
+
 const userPrefersDark =
   window.matchMedia &&
   window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -33,7 +35,11 @@ function App() {
         <div className="app-content">
 
           {!token ? <Login /> :
-            <Chat />
+            <React.Fragment>
+              <Sidebar />
+              <Chat />
+            </React.Fragment>
+
           }
         </div>
 

@@ -1,5 +1,5 @@
 import React from "react";
-import Icon from "components/Icon";
+import Icon from "../../../components/Icon";
 
 const attachButtons = [
 	{ icon: "attachRooms", label: "Choose room" },
