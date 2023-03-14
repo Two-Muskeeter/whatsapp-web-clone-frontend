@@ -50,18 +50,34 @@ const Alert = () => {
 	const handleChange = ({ target: { level, charging } }) => {
 		setBattery({ level, charging });
 	}
-    // const {isConnected} = 	();
+	const [isOnline, setIsOnline] = useState(navigator.onLine);
 
 	useEffect(() => {
+		// Update network status
+		const handleStatusChange = () => {
+			setIsOnline(navigator.onLine);
+		};
 		let battery;
 		navigator.getBattery().then(bat => {
 			battery = bat;
 			handleChange({ target: battery });
 		});
+		// Listen to the online status
+		window.addEventListener('online', handleStatusChange);
 
-	}, []);
+		// Listen to the offline status
+		window.addEventListener('offline', handleStatusChange);
+
+		// Specify how to clean up after this effect for performance improvment
+		return () => {
+			window.removeEventListener('online', handleStatusChange);
+			window.removeEventListener('offline', handleStatusChange);
+		};
+
+	}, [isOnline]);
+
 	return <React.Fragment>
-		{battery.level * 100 < 21 ? alerts[1] : ''}
+		{battery.level * 100 < 21 ? alerts[1] : !isOnline ? alerts[0] : alerts[2]}
 
 	</React.Fragment>;
 };
