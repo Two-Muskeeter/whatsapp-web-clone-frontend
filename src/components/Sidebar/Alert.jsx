@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Icon from "../Icon/index";
 
 const alerts = [
@@ -45,7 +45,25 @@ const alerts = [
 const randomAlert = alerts.sort(() => 0.5 - Math.random())[0];
 
 const Alert = () => {
-	return <>{randomAlert}</>;
+	const [battery, setBattery] = useState({ level: 0, charging: false });
+
+	const handleChange = ({ target: { level, charging } }) => {
+		setBattery({ level, charging });
+	}
+    // const {isConnected} = 	();
+
+	useEffect(() => {
+		let battery;
+		navigator.getBattery().then(bat => {
+			battery = bat;
+			handleChange({ target: battery });
+		});
+
+	}, []);
+	return <React.Fragment>
+		{battery.level * 100 < 21 ? alerts[1] : ''}
+
+	</React.Fragment>;
 };
 
 export default Alert;
