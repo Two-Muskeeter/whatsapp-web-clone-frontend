@@ -6,13 +6,34 @@ import Loader from './components/Loader/index'
 import useCookie from './hooks/useCookie';
 import constant from './constant';
 import Sidebar from "./components/Sidebar/index";
+import io from 'socket.io-client'
+import { useSelector, useDispatch } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actionCreators } from './state/index'
 
 const userPrefersDark =
   window.matchMedia &&
   window.matchMedia("(prefers-color-scheme: dark)").matches;
+const socket = io.connect("http://localhost:5009")
+
+function LoggedIn() {
+
+  const dispatch = useDispatch()
+  const { connect } = bindActionCreators(actionCreators, dispatch)
+  connect(socket.id)
+  useEffect(() => {
+  }, [socket])
+  return (
+    <React.Fragment>
+      <Sidebar />
+      <Chat />
+    </React.Fragment>
+  )
+}
+
 function App() {
+  const state = useSelector(state => state)
   const [token, setToken, deleteToken] = useCookie(constant.keys.token);
-  console.log(token)
   const [appLoaded, setAppLoaded] = useState(false);
   const [startLoadProgress, setStartLoadProgress] = useState(false);
 
@@ -35,10 +56,7 @@ function App() {
         <div className="app-content">
 
           {!token ? <Login /> :
-            <React.Fragment>
-              <Sidebar />
-              <Chat />
-            </React.Fragment>
+            <LoggedIn />
 
           }
         </div>
