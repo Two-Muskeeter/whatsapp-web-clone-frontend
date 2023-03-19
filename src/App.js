@@ -10,19 +10,24 @@ import io from 'socket.io-client'
 import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from './state/index'
+import { getInfo } from './actions/user';
+
 
 const userPrefersDark =
   window.matchMedia &&
   window.matchMedia("(prefers-color-scheme: dark)").matches;
-const socket = io.connect("http://localhost:5009")
+const socket = io.connect(process.env.REACT_APP_BASE_URL)
 
 function LoggedIn() {
-
   const dispatch = useDispatch()
-  const { connect } = bindActionCreators(actionCreators, dispatch)
-  connect(socket.id)
+  const { connect, updateDetails } = bindActionCreators(actionCreators, dispatch)
+  const state = useSelector(state => state)
+
   useEffect(() => {
-  }, [socket])
+    connect(socket.id)
+    updateDetails()
+    // })
+  }, [])
   return (
     <React.Fragment>
       <Sidebar />
